@@ -1,8 +1,11 @@
 import random, time, pygame, sys
 from pygame.locals import *
-seed = 43
-random.seed(seed)
+import numpy as np
 
+
+seed = 50
+random.seed(seed)
+np.random.seed(seed)
 ##############################################################################
 # SETTING UP GENERAL CONSTANTS
 ##############################################################################

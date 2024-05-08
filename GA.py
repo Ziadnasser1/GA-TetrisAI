@@ -3,7 +3,7 @@ import numpy as np
 import tetris as base
 import AI as ai
 
-seed = 43
+seed = 50
 random.seed(seed)
 np.random.seed(seed)
 

@@ -3,13 +3,16 @@ import tetris as base
 import GA as ga
 import AI as ai
 import random
-seed = 43
-random.seed(seed)
+import numpy as np
 
-GEN = 5
+seed = 50
+random.seed(seed)
+np.random.seed(seed)
+
+GEN = 12
 POP_SIZE = 15
-PM = 0.1
-PC = 0.5
+PM = 0.2
+PC = 0.6
 ITERATIONS = 10000
 
 
