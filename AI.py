@@ -5,6 +5,7 @@ import AI as ai
 import random
 import numpy as np
 
+import matplotlib.pyplot as plt
 seed = 50
 random.seed(seed)
 np.random.seed(seed)
@@ -15,6 +16,7 @@ PM = 0.2
 PC = 0.6
 ITERATIONS = 10000
 
+best_two_across_gens=[]
 
 def run_game(chromosome, speed=1000, iterations=ITERATIONS, max_score=50000, no_show=False):
     base.FPS = int(speed)
@@ -119,9 +121,7 @@ def draw_game_on_screen(board, score, level, next_piece, falling_piece):
 def train_ai(generations_num=GEN, population_size=POP_SIZE , Pm=PM):
     pop = ga.GeneticAlgorithm(population_size)
     best_chromosomes = []
-
     for gen in range(generations_num):
-
         selected_population = pop.selection()
 
         new_pop = pop.crossover(selected_population)
@@ -136,6 +136,7 @@ def train_ai(generations_num=GEN, population_size=POP_SIZE , Pm=PM):
         sorted_chromosomes = sorted(pop.chromosomes, key=lambda c: c.score, reverse=True)
 
         best_2 = sorted_chromosomes[:2]
+        best_two_across_gens.append(best_2)
         best_chromosome = best_2[0]
         best_chromosomes.append(copy.deepcopy(best_chromosome))
         print(f"Generation {gen + 1}: Best Score: {best_chromosome.score}")
@@ -144,7 +145,6 @@ def train_ai(generations_num=GEN, population_size=POP_SIZE , Pm=PM):
 
     best_overall_chromosome = max(best_chromosomes, key=lambda c: c.score)
     pop.bestOverallLogFile(best_overall_chromosome)
-
     return best_overall_chromosome
 
 
@@ -152,3 +152,38 @@ def test_chromosome(chromosome):
     print("Testing Phase started")
     game_state = ai.run_game(chromosome, iterations=ITERATIONS, no_show=False)
     return game_state
+
+
+
+
+def plot_best_chromosomes():
+    generation_numbers = range(len(best_two_across_gens))
+    best_chromosome_1_scores = [chromosome[0].score for chromosome in best_two_across_gens]
+    best_chromosome_2_scores = [chromosome[1].score for chromosome in best_two_across_gens]
+
+    fig, axs = plt.subplots(2, 1, figsize=(10, 8))  # Create a figure with 2 subplots
+
+    # First subplot: best chromosomes as dots
+    axs[0].scatter(generation_numbers, best_chromosome_1_scores, label='First Best Chromosome')
+    axs[0].scatter(generation_numbers, best_chromosome_2_scores, label='Second Best Chromosome')
+    axs[0].set_xlabel('Generation')
+    axs[0].set_ylabel('Best Chromosome Score')
+    axs[0].set_title('Evolution of Best Chromosomes Score (Dots)')
+    axs[0].legend()
+    axs[0].set_xticks(range(len(best_two_across_gens)))
+
+    # Second subplot: best chromosomes as lines
+    axs[1].plot(generation_numbers, best_chromosome_1_scores, label='Best Chromosome 1', marker='', linestyle='-')
+    axs[1].plot(generation_numbers, best_chromosome_2_scores, label='Best Chromosome 2', marker='', linestyle='-')
+    axs[1].set_xlabel('Generation')
+    axs[1].set_ylabel('Best Chromosome Score')
+    axs[1].set_title('Evolution of Best Chromosomes Score (Lines)')
+    axs[1].legend()
+    axs[1].set_xticks(range(len(best_two_across_gens)))
+
+    plt.tight_layout()  # Adjust layout to prevent overlap
+    
+    # Save plot as image
+    plt.savefig('best_chromosomes_plot_graphs.png')
+
+    plt.show()

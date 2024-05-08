@@ -50,7 +50,6 @@ class GeneticAlgorithm:
             genes = np.random.uniform(-1, 1, size=genes_num)
             chromosome = Chromosome(genes)
             self.chromosomes.append(chromosome)
-
             game = ai.run_game(self.chromosomes[i], no_show=True)
             self.chromosomes[i].fitness_cal(game)
 
@@ -142,3 +141,5 @@ class GeneticAlgorithm:
         file = open("logFile.txt", "a")
         file.write(f"Best Chromosome Overall Genes: {list(best_overall.genes)}\n")
         file.write(f"Best Chromosome Overall Score: {best_overall.score} \n")
+    
+    
