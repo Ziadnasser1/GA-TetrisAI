@@ -3,7 +3,7 @@ import tetris as base
 import GA as ga
 
 def main():
-    x = int(input("Enter 1 for training then test Or 2 for testing with best chromosome:"))
+    x = int(input("Enter 1 for training Or 2 for testing with best chromosome:"))
     base.main()
     if(x == 1):
         best_cs = ai.train_ai()
