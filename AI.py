@@ -64,10 +64,10 @@ def run_game(chromosome, speed=1000, iterations=ITERATIONS, max_score=50000, no_
                 base.add_to_board(board, falling_piece)
                 num_removed_lines = base.remove_complete_lines(board)
                 # Bonus score for complete lines at once
-                #                 # 40   pts for 1 line
-                #                 # 120  pts for 2 lines
-                #                 # 300  pts for 3 lines
-                #                 # 1200 pts for 4 lines
+                # 40   pts for 1 line
+                # 120  pts for 2 lines
+                # 300  pts for 3 lines
+                # 1200 pts for 4 lines
                 if num_removed_lines == 1:
                     score += 40
                     removed_lines[0] += 1

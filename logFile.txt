@@ -671,4 +671,4 @@ Best Chromosome 2
 ------------------------------
 
 Best Chromosome Overall Genes: [-0.1569083865955414, -0.9891202622783586, -0.9477969086575992, 0.045593164439093226, 0.5227476359230623, -0.22043626796392823, 0.3696077645687237]
-Best Chromosome Overall Score: 50639 
+Best Chromosome Overall Score: 50639
